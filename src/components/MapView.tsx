@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
 import L, { LatLngBoundsExpression, LatLngExpression } from 'leaflet';
 
-// Corregir el ícono de marcador por defecto
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+// Importa el ícono personalizado de carro
+import carIconImg from '../assets/car-icon.png';
 
-const DefaultIcon = L.icon({
-    iconUrl: markerIcon,
-    shadowUrl: markerShadow,
+const carIcon = L.icon({
+    iconUrl: carIconImg,
+    iconSize: [40, 40], // Tamaño del ícono
+    iconAnchor: [20, 20], // Punto de anclaje del ícono
+    popupAnchor: [0, -20] // Punto desde donde el popup se abrirá respecto al ícono
 });
-
-L.Marker.prototype.options.icon = DefaultIcon;
 
 const MapWrapper = styled.div`
   flex: 1;
@@ -59,7 +58,11 @@ const MapView = ({ gpsData }: { gpsData: any[] }) => {
                 />
 
                 {gpsData.map((data) => (
-                    <Marker key={data.device_id} position={[data.latitude, data.longitude]}>
+                    <Marker
+                        key={data.device_id}
+                        position={[data.latitude, data.longitude]}
+                        icon={carIcon} // Usa el ícono de carro en lugar del ícono por defecto
+                    >
                         <Popup>
                             <div>
                                 <strong>ID:</strong> {data.device_id} <br />
