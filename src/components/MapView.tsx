@@ -35,7 +35,7 @@ const UpdateMapBounds = ({ gpsData }: { gpsData: any[] }) => {
                 maxZoom: 15, // Ajusta el zoom máximo si es necesario
             });
 
-            console.log('Map bounds adjusted.');
+            console.log('Map bounds adjusted. ok');
         }
     }, [gpsData, map]);
 
